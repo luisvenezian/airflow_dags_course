@@ -19,7 +19,7 @@ def weekday_subdag(
         DataProcPySparkOperator(
             task_id = f'{job}',
             main = f'gs://lfav-logistics-spark-bucket/pyspark/weekday/{job}.py',
-            cluster_name = 'spark-cluster-{{ nodash }}',
+            cluster_name = 'spark-cluster-{{ ds_nodash }}',
             dataproc_pyspark_jars = "gs://spark-lib/bigquery/spark-bigquery-latest.jar",
             dag=subdag
         )
