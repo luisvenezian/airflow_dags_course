@@ -8,18 +8,18 @@ def weekday_subdag(
     default_args = None):
 
     subdag =  DAG(
-        f'{parent_dag}.{task_id}',
+        f"{parent_dag}.{task_id}",
         schedule_interval = schedule_interval,
         default_args = default_args
     )
 
-    pyspark_jobs = ['avg_speed', 'avg_temperature', 'avg_tire_pressure']
+    pyspark_jobs = ["avg_speed", "avg_temperature", "avg_tire_pressure"]
 
     for job in pyspark_jobs:
         DataProcPySparkOperator(
-            task_id = f'{job}',
-            main = f'gs://lfav-logistics-spark-bucket/pyspark/weekday/{job}.py',
-            cluster_name = 'spark-cluster-{{ ds_nodash }}',
+            task_id = f"{job}",
+            main = f"gs://lfav-logistics-spark-bucket/pyspark/weekday/{job}.py",
+            cluster_name = "spark-cluster-{{ ds_nodash }}",
             dataproc_pyspark_jars = "gs://spark-lib/bigquery/spark-bigquery-latest.jar",
             dag=subdag
         )
